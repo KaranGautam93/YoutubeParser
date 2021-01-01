@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{secure_asset('/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{secure_asset('favicon-16x16.png')}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+            integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+            crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <style>
@@ -98,24 +100,35 @@
             color: #fff !important;
             cursor: default;
         }
-        .swal-text{
+
+        .swal-text {
             color: black;
             font-size: large;
             font-weight: bold;
         }
-        .swal-footer{
+
+        .swal-footer {
             text-align: center;
         }
     </style>
 </head>
 <body>
+<ul class="sidenav" id="mobile-demo">
+    <li><a
+            onclick="fetchLatestVideos()">
+            Fetch Latest Videos
+        </a></li>
+</ul>
 <nav>
     <div class="nav-wrapper">
-        <a href="http://<?php echo env('APP_URL')?>" class="brand-logo" style="margin-left: 10px;">
-            <span style="font-size: large;"><img src="{{asset('/favicon-32x32.png')}}" style="vertical-align: middle"/>
+        <a href="https://<?php echo env('APP_URL')?>" class="brand-logo" style="margin-left: 10px;">
+            <span style="font-size: large;"><img src="{{secure_asset('/favicon-32x32.png')}}"
+                                                 style="vertical-align: middle"/>
                 <span style="vertical-align: middle;">Youtube Trending</span>
             </span>
         </a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fa fa-bars"></i></a>
+
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
                 <a class="waves-effect waves-light btn fetch-btn" style="font-weight: bold;"
@@ -151,25 +164,33 @@
 </body>
 </html>
 <script
-    src="{{asset('/js/jquery.min.js')}}" type="text/javascript">
+    src="{{secure_asset('/js/jquery.min.js')}}" type="text/javascript">
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, []);
+    });
+
     function fetchLatestVideos() {
         $(".btnLoader").show();
         $(".fetch-btn").attr('disabled', true);
+        $(".sidenav-overlay").css("display","none");
+        $(".sidenav-overlay").css("opacity","0");
+        $(".sidenav").css('transform','translateX(-105%)');
         $.ajax({
-            url: 'http://<?php echo env("APP_URL") . "fetchLatestVideos" ?>',
+            url: 'https://<?php echo env("APP_URL") . "fetchLatestVideos" ?>',
             method: 'GET',
             success: function (html) {
-                swal( "","Latest videos fetched. Redirecting to home...","success");
-                setTimeout(()=>{
-                    window.location.href = 'http://<?php echo env("APP_URL")?>';
-                },3000)
+                swal("", "Latest videos fetched. Redirecting to home...", "success");
+                setTimeout(() => {
+                    window.location.href = 'https://<?php echo env("APP_URL")?>';
+                }, 3000)
             },
-            error:function (error){
+            error: function (error) {
                 $(".btnLoader").hide();
                 $(".fetch-btn").attr('disabled', false);
-                swal( "","An error occurred while fetching the latest videos...","error");
+                swal("", "An error occurred while fetching the latest videos...", "error");
             }
         });
     }

@@ -5,9 +5,9 @@
 @section('content')
     <div style="margin-top: 10px;">
         <div class="row">
-            <div id="player" class="col s8"></div>
-            <div class="col-s4">
-                <div class="card medium pull-right" style="width: 32%; margin-top: 0px;">
+            <div id="player" class="col s12 m8 l8"></div>
+            <div class="col s12 m4 l4 channel-card" style="display: none">
+                <div class="card medium pull-right" style=" width: 100%;margin-top: 0px;">
                     <div class="card-image waves-effect waves-block waves-light" style="background-color: #383d41;text-align: center">
                         <img style="border-radius: 100%;max-height: 200px; max-width: 200px;margin-left: 25%" class="activator channel-image" src="" >
                     </div>
@@ -26,7 +26,7 @@
                 <br/><span id="videoStatics"></span></div>
         </div>
         <div class="row">
-            <div id="videoDescription" class="col s8">
+            <div id="videoDescription" class="col s12 m8 l8">
             </div>
 
         </div>
@@ -41,10 +41,11 @@
                 function fetchVideoDetails() {
                     $(".loader-div").show();
                     $.ajax({
-                        url: 'http://<?php echo env("APP_URL") . "getVideoDetails/" ?><?php echo $id;?>',
+                        url: 'https://<?php echo env("APP_URL") . "getVideoDetails/" ?><?php echo $id;?>',
                         method: 'GET',
                         success: function (response) {
                             $(".loader-div").hide();
+                            $(".channel-card").css('display','block');
                             let result = JSON.parse(JSON.stringify(response));
                             let channelThumbnails = JSON.parse(result['channelThumbnails']);
                             $("#videoTitle").text(result['videoTitle']);

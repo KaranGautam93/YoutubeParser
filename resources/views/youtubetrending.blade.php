@@ -17,7 +17,7 @@
     function getLatestYoutubeVideos() {
         $(".loader-div").show();
         $.ajax({
-            url: 'http://<?php echo env("APP_URL") . "latestVideos" ?>',
+            url: 'https://<?php echo env("APP_URL") . "latestVideos" ?>',
             method: 'GET',
             success: function (response) {
                 $(".loader-div").hide();
@@ -36,10 +36,10 @@
                         str += '<div class="col s12 m3 mt-auto">' +
                             '<div class="card small">' +
                             '<div class="card-image">' +
-                            '<a href="http://<?php echo env("APP_URL")  ?>videoDetails/' + result[j]['video_id'] + '" > <img src="' + defaultThumbNail + '">' +
+                            '<a href="https://<?php echo env("APP_URL")  ?>videoDetails/' + result[j]['video_id'] + '" > <img src="' + defaultThumbNail + '">' +
                             '</div>' +
                             '<div class="card-content">' +
-                            '<p><a href="http://<?php echo env("APP_URL")  ?>videoDetails/' + result[j]['video_id'] + '" > ' + result[j]['title'] + '</a></p>' +
+                            '<p><a href="https://<?php echo env("APP_URL")  ?>videoDetails/' + result[j]['video_id'] + '" > ' + result[j]['title'] + '</a></p>' +
                             '</div>' +
 
                             '</div>' +
