@@ -110,6 +110,15 @@
         .swal-footer {
             text-align: center;
         }
+
+        @media only screen and (max-width: 400px) {
+            .channel-card {
+                margin-top: 20px;
+            }
+            .channel-card img{
+                margin-left: 20% !important;
+            }
+        }
     </style>
 </head>
 <body>

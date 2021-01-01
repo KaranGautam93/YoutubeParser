@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col s8"><span id="videoTitle" style="font-weight: bold;"></span>
+            <div class="col s12 m8 l8"><span id="videoTitle" style="font-weight: bold;"></span>
                 <br/><span id="videoStatics"></span></div>
         </div>
         <div class="row">
