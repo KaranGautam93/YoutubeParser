@@ -1,4 +1,5 @@
 Youtube Trending
+A simple web app to fetch the latest trending videos from youtube and display.
 
 Requirements:
 1.  PHP version>= 7.1.
