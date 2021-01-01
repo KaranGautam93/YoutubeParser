@@ -98,6 +98,11 @@
             color: #fff !important;
             cursor: default;
         }
+        .swal-text{
+            color: black;
+            font-size: large;
+            font-weight: bold;
+        }
         .swal-footer{
             text-align: center;
         }

@@ -22,6 +22,10 @@
             success: function (response) {
                 $(".loader-div").hide();
                 const result = JSON.parse(JSON.stringify(response));
+                if(result.length == 0)
+                {
+                    swal("","We didn't find any trending video in our system. Please click on fetch latest videos button.","info");
+                }
                 let i = 0;
                 for (i = 0; i < result.length; i = i + 4) {
                     let str = '<div class="row">';

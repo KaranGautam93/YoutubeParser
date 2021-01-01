@@ -53,7 +53,8 @@ class Youtube
         }
         $result = ['error' => true];
         $url = env('YOUTUBE_API_URL');
-        $url .= "videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" . env('YOUTUBE_API_KEY');
+        $region = env('PREFERRED_REGION');
+        $url .= "videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=$region&key=" . env('YOUTUBE_API_KEY');
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$this->accessToken));

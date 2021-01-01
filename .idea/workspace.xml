@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="053d8ee0-7d3e-4245-b5bb-bdf7edc02716" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Youtube.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Youtube.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_30_144041_create_videos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_30_144041_create_videos_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_30_144102_create_subscribers_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_30_144117_create_channels_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_30_144117_create_channels_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/youtubetrending.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/youtubetrending.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
