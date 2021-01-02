@@ -5,6 +5,7 @@ namespace App\Libraries;
 use App\Video;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class Youtube
 {
@@ -93,18 +94,29 @@ class Youtube
     public function addChannel($channel)
     {
         $channelDetails = $this->fetchChannel($channel);
-        if($channelDetails['error'])
+        try
         {
-            return;
+            if($channelDetails['error'])
+            {
+                return;
+            }
+            $channelItem = $channelDetails['response']['items'][0];
+            $data = [];
+            $data['channel_id'] = $channelItem['id'];
+            $data['title'] = $channelItem['snippet']['title'];
+            $data['description'] = $channelItem['snippet']['description'];
+            $data['thumbnails'] = json_encode($channelItem['snippet']['thumbnails']);
+            if(isset($channelItem['statistics']['subscriberCount']))
+            {
+                $data['subscribers'] = $channelItem['statistics']['subscriberCount'];
+            }
+            DB::table('channels')->updateOrInsert(['channel_id' => $data['channel_id']],$data);
         }
-        $channelItem = $channelDetails['response']['items'][0];
-        $data = [];
-        $data['channel_id'] = $channelItem['id'];
-        $data['title'] = $channelItem['snippet']['title'];
-        $data['description'] = $channelItem['snippet']['description'];
-        $data['thumbnails'] = json_encode($channelItem['snippet']['thumbnails']);
-        $data['subscribers'] = $channelItem['statistics']['subscriberCount'];
-        DB::table('channels')->updateOrInsert(['channel_id' => $data['channel_id']],$data);
+        catch (Exception $exception)
+        {
+            \Log::error($channelDetails);
+            \Log::error($exception);
+        }
     }
 
     public function addVideos()
@@ -125,9 +137,18 @@ class Youtube
                 $data['description'] = $item['snippet']['description'];
                 $data['thumbnails'] = json_encode($item['snippet']['thumbnails']);
                 $data['url'] = "https://www.youtube.com/watch?v=".$item['id'];
-                $data['likes'] = $item['statistics']['likeCount'];
-                $data['dislikes'] = $item['statistics']['dislikeCount'];
-                $data['views'] = $item['statistics']['viewCount'];
+                if(isset($item['statistics']['likeCount']))
+                {
+                    $data['likes'] = $item['statistics']['likeCount'];
+                }
+                if(isset($item['statistics']['dislikeCount']))
+                {
+                    $data['dislikes'] = $item['statistics']['dislikeCount'];
+                }
+                if(isset($item['statistics']['viewCount']))
+                {
+                    $data['views'] = $item['statistics']['viewCount'];
+                }
                 $data['channel_id'] = $item['snippet']['channelId'];
                 DB::table('videos')->updateOrInsert(['video_id' => $data['video_id'],
                     'channel_id' => $data['channel_id']],$data);

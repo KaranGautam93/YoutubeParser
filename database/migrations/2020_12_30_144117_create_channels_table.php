@@ -18,9 +18,11 @@ class CreateChannelsTable extends Migration
             $table->text('channel_id');
             $table->text('title');
             $table->text('description');
-            $table->text('thumbnails');
-            $table->integer('subscribers');
-            $table->timestamps();
+            $table->text('thumbnails')->nullable();
+            $table->integer('subscribers')->default(0);
+            $table->unique(['channel_id']);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

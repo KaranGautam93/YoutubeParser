@@ -81,7 +81,7 @@
         }
 
         .loader-div {
-            overflow: hidden !important;
+            height: 50% !important;
         }
 
         body {
@@ -118,6 +118,13 @@
             .channel-card img{
                 margin-left: 20% !important;
             }
+            .brand-logo img
+            {
+                display: none !important;
+            }
+        }
+        .player{
+            width: 100% !important;
         }
     </style>
 </head>
@@ -150,24 +157,24 @@
         </ul>
     </div>
 </nav>
-<div class="flex-center position-ref full-height loader-div">
-    <div class="content">
-        <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
+<div class="container">
+    <div class="flex-center position-ref full-height loader-div">
+        <div class="content">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
     @yield('content')
 </div>
 </body>
@@ -190,11 +197,20 @@
         $.ajax({
             url: 'https://<?php echo env("APP_URL") . "fetchLatestVideos" ?>',
             method: 'GET',
-            success: function (html) {
-                swal("", "Latest videos fetched. Redirecting to home...", "success");
-                setTimeout(() => {
-                    window.location.href = 'https://<?php echo env("APP_URL")?>';
-                }, 3000)
+            success: function (response) {
+                if(response['error'])
+                {
+                    $(".btnLoader").hide();
+                    $(".fetch-btn").attr('disabled', false);
+                    swal("", "An error occurred while fetching the latest videos...", "error");
+                }
+                else
+                {
+                    swal("", "Latest videos fetched. Redirecting to home...", "success");
+                    setTimeout(() => {
+                        window.location.href = 'https://<?php echo env("APP_URL")?>';
+                    }, 3000);
+                }
             },
             error: function (error) {
                 $(".btnLoader").hide();
@@ -202,6 +218,18 @@
                 swal("", "An error occurred while fetching the latest videos...", "error");
             }
         });
+    }
+    const getBestQualityThumbnail = (thumbnails) => {
+        if (thumbnails['high']) {
+            return thumbnails['high']['url'];
+        }
+        if (thumbnails['medium']) {
+            return thumbnails['medium']['url'];
+        }
+        if (thumbnails['standard']) {
+            return thumbnails['standard']['url'];
+        }
+        return '/defaultThumbnail.png';
     }
 </script>
 @yield('script')

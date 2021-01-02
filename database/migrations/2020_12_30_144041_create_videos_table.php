@@ -17,14 +17,16 @@ class CreateVideosTable extends Migration
             $table->increments('id');
             $table->text('title');
             $table->text('description');
-            $table->text('thumbnails');
+            $table->text('thumbnails')->nullable();
             $table->text('url');
-            $table->integer('likes');
-            $table->integer('dislikes');
-            $table->integer('views');
+            $table->integer('likes')->default(0);
+            $table->integer('dislikes')->default(0);
+            $table->integer('views')->default(0);
             $table->text('channel_id');
             $table->text('video_id');
-            $table->timestamps();
+            $table->unique(['channel_id','video_id']);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

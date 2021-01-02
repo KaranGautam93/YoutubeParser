@@ -12,7 +12,7 @@ class Video extends Model
 
     public static function getVideos()
     {
-        return Video::select('video_id','thumbnails','title')->orderBy('created_at','desc')->take(30)->get()->toArray();
+        return Video::select('video_id','thumbnails','title')->orderBy('created_at','desc')->get()->toArray();
     }
 
     public static function getDetails($id)

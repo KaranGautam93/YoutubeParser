@@ -32,7 +32,7 @@
                     var j = i;
                     for (; j < result.length && j < i + 4; j++) {
                         let defaultThumbNail = JSON.parse(result[j]['thumbnails']);
-                        defaultThumbNail = defaultThumbNail['standard']['url'];
+                        defaultThumbNail = getBestQualityThumbnail(defaultThumbNail);
                         str += '<div class="col s12 m3 mt-auto">' +
                             '<div class="card small">' +
                             '<div class="card-image">' +
